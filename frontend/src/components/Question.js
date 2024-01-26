@@ -15,40 +15,47 @@ class Question extends Component {
 
   render() {
     const { question, answer, category, difficulty } = this.props;
-    return (
-      <div className='Question-holder'>
-        <div className='Question'>{question}</div>
-        <div className='Question-status'>
-          <img
-            className='category'
-            alt={`${category.toLowerCase()}`}
-            src={`${category.toLowerCase()}.svg`}
-          />
-          <div className='difficulty'>Difficulty: {difficulty}</div>
-          <img
-            src='delete.png'
-            alt='delete'
-            className='delete'
-            onClick={() => this.props.questionAction('DELETE')}
-          />
-        </div>
-        <div
-          className='show-answer button'
-          onClick={() => this.flipVisibility()}
-        >
-          {this.state.visibleAnswer ? 'Hide' : 'Show'} Answer
-        </div>
-        <div className='answer-holder'>
+
+      if(category && answer && question && difficulty) {
+          return (
+              <div className='Question-holder'>
+                  <div className='Question'>{question}</div>
+                  <div className='Question-status'>
+                      <img
+                          className='category'
+                          alt={`${category.toLowerCase()}`}
+                          src={`${category.toLowerCase()}.svg`}
+                      />
+                      <div className='difficulty'>Difficulty: {difficulty}</div>
+                      <img
+                          src='delete.png'
+                          alt='delete'
+                          className='delete'
+                          onClick={() => this.props.questionAction('DELETE')}
+                      />
+                  </div>
+                  <div
+                      className='show-answer button'
+                      onClick={() => this.flipVisibility()}
+                  >
+                      {this.state.visibleAnswer ? 'Hide' : 'Show'} Answer
+                  </div>
+                  <div className='answer-holder'>
           <span
-            style={{
-              visibility: this.state.visibleAnswer ? 'visible' : 'hidden',
-            }}
+              style={{
+                  visibility: this.state.visibleAnswer ? 'visible' : 'hidden',
+              }}
           >
             Answer: {answer}
           </span>
-        </div>
-      </div>
-    );
+                  </div>
+              </div>
+          );
+      } else {
+          return null
+      }
+
+
   }
 }
 
