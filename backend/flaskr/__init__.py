@@ -233,8 +233,12 @@ def create_app(test_config=None):
         previous_questions = data.get('previous_questions', None)
 
         try:
-            category = Category.query.filter(Category.id == quiz_category["id"]).one_or_none()
-            quiz_questions = Question.query.filter(Question.category == category.id).all()
+            if quiz_category['id'] == 0:
+                quiz_questions = Question.query.all()
+            else:
+                category = Category.query.filter(Category.id == quiz_category["id"]).one_or_none()
+                quiz_questions = Question.query.filter(Question.category == category.id).all()
+
             possible_questions = []
 
             for question in quiz_questions:
